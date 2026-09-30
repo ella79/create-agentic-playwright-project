@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * create-agentic-playwright-suite
+ * create-agentic-playwright-project
  * Scaffolds a Playwright + TypeScript agentic-QA project.
  *
  * Usage:
- *   npm create agentic-playwright-suite@latest my-suite
- *   npm create agentic-playwright-suite@latest            (will prompt for a name)
+ *   npm create agentic-playwright-project@latest my-app
+ *   npm create agentic-playwright-project@latest            (will prompt for a name)
  *
  * No third-party dependencies: it copies template/ into the target folder
  * and replaces __PROJECT_NAME__ tokens.
@@ -88,7 +88,7 @@ async function main() {
     process.exit(1);
   }
   if (!fs.existsSync(templateDir)) {
-    console.error("\nTemplate folder not found. Reinstall create-agentic-playwright-suite.");
+    console.error("\nTemplate folder not found. Reinstall create-agentic-playwright-project.");
     process.exit(1);
   }
 

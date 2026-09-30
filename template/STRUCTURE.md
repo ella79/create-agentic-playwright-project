@@ -1,6 +1,6 @@
 # Project structure
 
-The skeleton `create-agentic-playwright-suite` generates. Grounded in Playwright's own guidance
+The skeleton `create-agentic-playwright-project` generates. Grounded in Playwright's own guidance
 (Page Object Model, semantic locators, test-agents) and Anthropic's guidance on
 agents. `__PROJECT_NAME__` is replaced with your project name.
 

@@ -1,10 +1,10 @@
 {
-  "name": "create-agentic-playwright-suite",
+  "name": "create-agentic-playwright-project",
   "version": "0.1.0",
   "description": "Scaffold a Playwright + TypeScript test project with a real architecture, Claude Code agents and skills, Playwright MCP, an evals gate, CI and architecture docs.",
   "type": "module",
   "bin": {
-    "create-agentic-playwright-suite": "index.js"
+    "create-agentic-playwright-project": "index.js"
   },
   "files": [
     "index.js",
@@ -29,6 +29,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ella79/create-agentic-playwright-suite"
+    "url": "https://github.com/ella79/create-agentic-playwright-project"
   }
 }

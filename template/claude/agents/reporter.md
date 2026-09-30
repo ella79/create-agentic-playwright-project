@@ -40,3 +40,7 @@ say so in the report instead of guessing.
 
 Do not create a Jira issue unless asked to file one; creating an issue is a real
 side effect. Default to writing the Markdown report and offer to file it.
+
+Memory: if the same bug recurs or points to a structural weakness, note it in docs/notes.md or an ADR so it is not re-reported from scratch each time.
+
+Operating rules (see CLAUDE.md "Agent operating rules"): stay token-lean (read the failing test, its plan and its artifacts, not the whole repo); ground every field in the real run; never invent a step, result, screenshot or stack trace; filing to Jira is a side effect, do it only when asked.

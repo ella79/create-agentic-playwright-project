@@ -1,4 +1,4 @@
-# create-agentic-playwright-suite
+# create-agentic-playwright-project
 
 Scaffold a production-shaped **QA project** in one command: Playwright +
 TypeScript, with Claude Code agents and skills, Playwright MCP, an evals gate,
@@ -25,14 +25,14 @@ Sources are cited in the generated `ARCHITECTURE.md`.
 
 ```bash
 # install the scaffolder globally from GitHub (public repo, no token)
-npm install -g github:ella79/create-agentic-playwright-suite
-create-agentic-playwright-suite my-app
+npm install -g github:ella79/create-agentic-playwright-project
+create-agentic-playwright-project my-app
 ```
 
 Other ways to run it (public repo, no account needed):
 ```bash
-npx github:ella79/create-agentic-playwright-suite my-app   # no global install
-npx create-agentic-playwright-suite my-app                 # if also published to npm
+npx github:ella79/create-agentic-playwright-project my-app   # no global install
+npx create-agentic-playwright-project my-app                 # if also published to npm
 ```
 
 Then set the project up:
@@ -46,8 +46,8 @@ yarn test
 
 ## Develop this scaffolder (from source)
 ```bash
-git clone https://github.com/ella79/create-agentic-playwright-suite
-cd create-agentic-playwright-suite
+git clone https://github.com/ella79/create-agentic-playwright-project
+cd create-agentic-playwright-project
 node index.js ../my-app        # scaffolds ../my-app from ./template
 ```
 

@@ -32,10 +32,10 @@ a Git repo first, the scaffolder creates the project folder.
 
 ```bash
 # 1. install the scaffolder (global, from GitHub - public repo, no token)
-npm install -g github:ella79/create-agentic-playwright-suite
+npm install -g github:ella79/create-agentic-playwright-project
 
 # 2. scaffold a new project (creates the ./my-app folder)
-create-agentic-playwright-suite my-app
+create-agentic-playwright-project my-app
 cd my-app
 
 # 3. install and set up
@@ -57,8 +57,8 @@ git push -u origin main
 Other ways to run the scaffolder (public repo, no account needed):
 
 ```bash
-npx github:ella79/create-agentic-playwright-suite my-app   # no global install
-npx create-agentic-playwright-suite my-app                 # if also published to npm
+npx github:ella79/create-agentic-playwright-project my-app   # no global install
+npx create-agentic-playwright-project my-app                 # if also published to npm
 ```
 
 The scaffold already ships `.gitignore`, CI (`.github/workflows/ci.yml`) and the
