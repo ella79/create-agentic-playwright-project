@@ -5,7 +5,7 @@ argument-hint: <STORY-id or a short feature description>
 
 Run the end-to-end QA cycle for: **$ARGUMENTS**
 
-Drive the subagents in order, keep each step token-lean, and stop at the human gate.
+Drive the subagents in order (the `manager` agent owns the scope/coverage decisions and the cycle), keep each step token-lean, and stop at the human gate.
 
 1. **Plan.** Use the `planner` subagent. If `$ARGUMENTS` names a story in
    `requirements/`, plan from its acceptance criteria (one scenario per AC, tagged

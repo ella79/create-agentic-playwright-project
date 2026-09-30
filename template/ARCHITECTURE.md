@@ -37,7 +37,7 @@ evals/           Pre-CI checks over agent-written tests
 templates/       Copy-me templates for stories, plans, page objects, tests
 docs/adr/        Architecture decision records (project memory)
 .claude/
-  agents/        planner, generator, healer, reviewer, reporter
+  agents/        planner, manager, generator, healer, reviewer, reporter
   skills/        requirements, page-object, visual-regression, api-testing, playwright-mcp, evals, bug-reporting, jira-ticket, test-status
   commands/      feature (end-to-end cycle)
 .mcp.json        Playwright MCP server (+ optional Jira, see templates/mcp.jira.example.json)

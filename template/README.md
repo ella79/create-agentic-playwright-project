@@ -8,7 +8,7 @@ for the design and `CLAUDE.md` for how agents work here.
 
 - **Framework:** Playwright Test (e2e, visual regression, API projects).
 - **Language:** TypeScript (ESM). Node 18+. Package manager: Yarn 4 (Corepack).
-- **Agents (Claude Code, `.claude/agents/`):** planner, generator, healer, reviewer,
+- **Agents (Claude Code, `.claude/agents/`):** planner, manager, generator, healer, reviewer,
   reporter.
 - **Skills (`.claude/skills/`):** requirements, page-object, visual-regression,
   api-testing, playwright-mcp, evals, bug-reporting, jira-ticket.

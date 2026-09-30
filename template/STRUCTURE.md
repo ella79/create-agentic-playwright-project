@@ -60,7 +60,7 @@ __PROJECT_NAME__/
     adr/                     Architecture decision records (project memory)
 
   .claude/
-    agents/                  planner, generator, healer, reviewer, reporter
+    agents/                  planner, manager, generator, healer, reviewer, reporter
     commands/                feature (runs the whole cycle end to end)
     skills/                  requirements, page-object, visual-regression,
                              api-testing, playwright-mcp, evals, bug-reporting,

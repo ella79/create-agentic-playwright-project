@@ -30,6 +30,8 @@ changes. This file is the contract for how agents work in this repo.
   criteria, the planner turns each criterion into a scenario and tags it
   `STORY-<id> / AC<n>` for traceability (see the `requirements` skill). If empty,
   the planner explores the running app instead.
+- Manager owns scope, coverage and the cycle: it decides what to test next, whether
+  coverage already exists (checks `specs/STATUS.md`), and routes work to the others.
 - Planner writes a plan into `specs/` (uses `seed.spec.ts`). You review the plan.
 - Generator turns an approved plan into a test in `tests/`, using the page
   objects. It verifies selectors and assertions live against the UI.
@@ -45,8 +47,9 @@ A single LLM coordinates multiple specialized agents - there is no separate "man
 process. The LLM (the Claude Code session) is that orchestrator: it reads the agent definitions, the skills and this file, picks which
 subagent to run, routes between them, and applies the skills. Subagents do not call
 each other. `/feature` is the script that LLM follows end to end; `agent/run.ts` is the
-programmatic equivalent via the Claude Agent SDK's `query()`. A "manager agent" would
-only be a policy prompt the same LLM adopts - it is optional, not required.
+programmatic equivalent via the Claude Agent SDK's `query()`. The `manager` agent is the coordination/decision layer (scope, coverage, the cycle,
+quality gates); it does not spawn the others - the LLM runs them and follows the
+manager's calls. It encodes policy; it is not a second brain.
 
 ## End-to-end for one feature
 
