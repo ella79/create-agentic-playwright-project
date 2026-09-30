@@ -56,6 +56,10 @@ own guidance (user-facing locators over CSS, test id as fallback). Details in th
 
 ## The agentic workflow
 
+The LLM is the orchestrator: the Claude Code session reads the agents, skills and docs,
+runs each subagent and routes between them (subagents do not call each other). `/feature`
+is the script it follows; no separate manager process exists.
+
 1. **Planner** reads `requirements/` first (stories + acceptance criteria) and maps
    each criterion to a traceable scenario; with no requirements it runs
    `seed.spec.ts` and explores (via Playwright MCP). Either way it writes a plan in `specs/`.

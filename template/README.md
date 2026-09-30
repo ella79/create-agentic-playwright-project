@@ -116,6 +116,14 @@ In Claude Code, run the whole cycle for a feature with one command:
 It drives planner -> (your approval) -> generator -> reviewer -> run -> healer or
 reporter, then summarizes AC coverage. See `.claude/commands/feature.md`.
 
+## Orchestration
+
+No separate manager is needed. The LLM (the Claude Code session) is the orchestrator:
+it reads the agents, skills and CLAUDE.md, decides which subagent to run and routes
+between them. `/feature` is the end-to-end script it follows; `agent/run.ts` is the
+programmatic version via the Claude Agent SDK. A "manager agent" is optional - just a
+policy prompt the same LLM adopts.
+
 ## Visual snapshots (Linux baselines)
 
 Snapshots include the platform in the name, and CI runs on Linux. Generate baselines

@@ -39,6 +39,15 @@ changes. This file is the contract for how agents work in this repo.
   standard bug report in `bug-reports/`, and files it to Jira when a Jira MCP is
   configured. See the `bug-reporting` skill.
 
+## Orchestration (who runs the agents)
+
+There is no separate "manager" process. The LLM - the Claude Code session - is the
+orchestrator: it reads the agent definitions, the skills and this file, picks which
+subagent to run, routes between them, and applies the skills. Subagents do not call
+each other. `/feature` is the script that LLM follows end to end; `agent/run.ts` is the
+programmatic equivalent via the Claude Agent SDK's `query()`. A "manager agent" would
+only be a policy prompt the same LLM adopts - it is optional, not required.
+
 ## End-to-end for one feature
 
 Run `/feature <STORY-id or description>` (see `.claude/commands/feature.md`) to drive
