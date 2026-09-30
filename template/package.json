@@ -1,0 +1,43 @@
+{
+  "name": "__PROJECT_NAME__",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "yarn@4.5.0",
+  "description": "Agentic QA suite: Playwright + TypeScript with Claude Code agents, skills, Playwright MCP, an evals gate and CI.",
+  "scripts": {
+    "test": "playwright test",
+    "test:e2e": "playwright test tests/e2e",
+    "test:visual": "playwright test tests/visual",
+    "test:api": "playwright test tests/api",
+    "test:visual:update": "playwright test tests/visual --update-snapshots",
+    "snapshots:linux": "docker run --rm -v \"$PWD\":/work -w /work mcr.microsoft.com/playwright:v1.56.0-jammy bash -c \"corepack enable && yarn install && yarn test:visual --update-snapshots\"",
+    "report": "playwright show-report",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "evals": "tsx evals/run-evals.ts",
+    "agent": "tsx agent/run.ts"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": false,
+    "trailingComma": "all"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.3.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.3.0",
+    "zod": "^4.0.0"
+  }
+}

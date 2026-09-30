@@ -1,0 +1,139 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  packages: write # push the built image to GHCR so later jobs can run in it
+
+# Pipeline: build the Playwright image -> static checks -> e2e (in that image).
+jobs:
+  # Stage 1 - build the Docker image (browsers + deps) and push it to GHCR, tagged
+  # with the commit SHA. This also proves the Dockerfile still builds.
+  image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      image: ${{ steps.meta.outputs.image }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compute image ref (lowercase)
+        id: meta
+        run: echo "image=ghcr.io/${GITHUB_REPOSITORY,,}:${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.image }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # Stage 2 - fast static gate. Runs only after the image builds.
+  static:
+    needs: image
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Enable Corepack (Yarn)
+        run: corepack enable
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Typecheck
+        run: yarn typecheck
+      - name: Lint (ESLint)
+        run: yarn lint
+      - name: Format check (Prettier)
+        run: yarn format:check
+      - name: Evals gate
+        run: yarn evals
+
+  # Stage 3 - the Playwright suite, inside the image built in stage 1. Sharded so the
+  # tests run in parallel across jobs; each test is independent (fullyParallel), and
+  # each shard uses all cores (workers 100%). Change the shard count in one place: the
+  # matrix list and the /N in --shard must match.
+  e2e:
+    needs: [image, static]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    container:
+      image: ${{ needs.image.outputs.image }}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable Corepack (Yarn)
+        run: corepack enable
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Run tests (shard ${{ matrix.shard }} of 2)
+        run: yarn playwright test --shard=${{ matrix.shard }}/2
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
+      - name: Upload blob report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: blob-report-${{ matrix.shard }}
+          path: blob-report/
+          retention-days: 7
+      - name: Upload traces on failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.shard }}
+          path: test-results/
+          retention-days: 14
+
+  # Stage 4 - merge the shards' blob reports into one HTML + JSON report.
+  report:
+    needs: e2e
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Enable Corepack (Yarn)
+        run: corepack enable
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Download blob reports
+        uses: actions/download-artifact@v4
+        with:
+          path: all-blob-reports
+          pattern: blob-report-*
+          merge-multiple: true
+      - name: Merge into one HTML report
+        run: yarn playwright merge-reports --reporter html ./all-blob-reports
+      - name: Upload merged HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+      - name: Link the report in the run summary
+        run: |
+          echo "### Playwright report" >> "$GITHUB_STEP_SUMMARY"
+          echo "Ran in 2 parallel shards, merged here. Download the **playwright-report** artifact and open \`index.html\`." >> "$GITHUB_STEP_SUMMARY"
+          echo "On failure the **test-results-<shard>** artifacts hold the traces: \`yarn playwright show-trace <trace.zip>\`." >> "$GITHUB_STEP_SUMMARY"

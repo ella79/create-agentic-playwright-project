@@ -1,0 +1,13 @@
+{
+  "//": "Optional Jira integration for the reporter agent. Merge the 'atlassian' entry into .mcp.json to enable it. It uses Atlassian's official Remote MCP Server; on first run it opens an OAuth login in your browser. Remove it if you do not use Jira. Docs: https://support.atlassian.com/rovo/docs/getting-started-with-the-atlassian-remote-mcp-server/",
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+    "atlassian": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"]
+    }
+  }
+}
