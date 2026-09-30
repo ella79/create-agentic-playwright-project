@@ -41,8 +41,8 @@ changes. This file is the contract for how agents work in this repo.
 
 ## Orchestration (who runs the agents)
 
-There is no separate "manager" process. The LLM - the Claude Code session - is the
-orchestrator: it reads the agent definitions, the skills and this file, picks which
+A single LLM coordinates multiple specialized agents - there is no separate "manager"
+process. The LLM (the Claude Code session) is that orchestrator: it reads the agent definitions, the skills and this file, picks which
 subagent to run, routes between them, and applies the skills. Subagents do not call
 each other. `/feature` is the script that LLM follows end to end; `agent/run.ts` is the
 programmatic equivalent via the Claude Agent SDK's `query()`. A "manager agent" would

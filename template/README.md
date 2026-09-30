@@ -118,7 +118,7 @@ reporter, then summarizes AC coverage. See `.claude/commands/feature.md`.
 
 ## Orchestration
 
-No separate manager is needed. The LLM (the Claude Code session) is the orchestrator:
+No separate manager is needed: a single LLM coordinates the multiple agents. The LLM (the Claude Code session) is the orchestrator:
 it reads the agents, skills and CLAUDE.md, decides which subagent to run and routes
 between them. `/feature` is the end-to-end script it follows; `agent/run.ts` is the
 programmatic version via the Claude Agent SDK. A "manager agent" is optional - just a

@@ -21,6 +21,30 @@ Everything follows official guidance (Playwright best practices, POM, fixtures,
 snapshots, API testing, test-agents, reporters, sharding; Claude Agent SDK; MCP).
 Sources are cited in the generated `ARCHITECTURE.md`.
 
+## What the command generates (structure at your project root)
+Running the command copies everything at the **root of your new project** (the
+`template/` folder in THIS repo is only the source; your generated project has no
+`template/` — the files land at its root and run as-is):
+
+```
+my-app/
+  package.json  playwright.config.ts  tsconfig.json  eslint.config.js
+  utils/            pageObjects (BaseAppPage, BaseComponentPage, home/), fixtures, url.ts, setup
+  tests/            e2e/  visual/  api/
+  specs/            test-plans/  vr-test-plans/  api-test-plans/  STATUS.md
+  requirements/     user stories with acceptance criteria
+  bug-reports/      Jira-ready reports (reporter output)
+  agent/run.ts      programmatic runner (Claude Agent SDK)
+  evals/            pre-CI checks
+  docs/             notes.md, adr/
+  templates/        copy-me templates (story, plan, page object, spec)
+  .claude/          agents, skills, commands
+  .github/workflows/ci.yml   Dockerfile   .mcp.json   .gitignore   seed.spec.ts
+  README.md  ARCHITECTURE.md  CLAUDE.md  STRUCTURE.md  LICENSE
+```
+`cd my-app && yarn install && yarn test` runs immediately. Full details in the
+generated `STRUCTURE.md`.
+
 ## Install and use
 
 ```bash

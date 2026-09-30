@@ -56,7 +56,7 @@ own guidance (user-facing locators over CSS, test id as fallback). Details in th
 
 ## The agentic workflow
 
-The LLM is the orchestrator: the Claude Code session reads the agents, skills and docs,
+The LLM is the orchestrator - a single LLM coordinates the multiple agents. The Claude Code session reads the agents, skills and docs,
 runs each subagent and routes between them (subagents do not call each other). `/feature`
 is the script it follows; no separate manager process exists.
 
