@@ -100,9 +100,9 @@ async function main() {
   console.log(`  yarn install`);
   console.log(`  yarn playwright install`);
   console.log(`  yarn test\n`);
-  console.log(`Agentic workflow (needs Claude Code + Playwright MCP):`);
-  console.log(`  yarn playwright init-agents --loop=claude   # planner / generator / healer`);
-  console.log(`  read CLAUDE.md and ARCHITECTURE.md first.\n`);
+  console.log(`Agentic workflow (needs Claude Code + the Playwright test MCP server):`);
+  console.log(`  Agents ship ready in .claude/agents/ - do not run init-agents (it overwrites them).`);
+  console.log(`  They connect to run-test-mcp-server via .mcp.json. Read CLAUDE.md + ARCHITECTURE.md first.\n`);
 }
 
 main().catch((err) => {
