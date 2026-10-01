@@ -8,10 +8,14 @@ repo, so you start a new project from a real structure instead of a blank page.
 ## What you get
 - Playwright + TypeScript, Page Object Model (two bases), fixtures, semantic locators, `utils/url.ts`, auth `setup` project.
 - Three test projects: `e2e`, `visual`, `api`. Independent tests, `fullyParallel`, CI sharded in parallel.
-- Claude Code setup: `CLAUDE.md`, agents (planner, generator, healer, reviewer, reporter),
+- Claude Code setup: `CLAUDE.md`, agents (manager, planner, generator, healer, reviewer, reporter),
   skills (requirements, page-object, visual-regression, api-testing, playwright-mcp, evals, bug-reporting, jira-ticket, test-status),
   commands (`/feature`, `/ticket`, `/coverage`).
 - Playwright MCP wired in `.mcp.json`; `seed.spec.ts` for the agents workflow; optional Jira MCP.
+  The two agents that drive the browser, `planner` and `healer`, carry `mcp__playwright`
+  in their `tools:` allowlist so the server's tools reach them; the rest stay file-only on
+  purpose. Claude Code asks you to approve the Playwright MCP server the first time it runs,
+  so approve it once and the browser tools become available to those agents.
 - Programmatic runner using `@anthropic-ai/claude-agent-sdk` (`agent/run.ts`).
 - Evals gate (`evals/run-evals.ts`) + GitHub Actions CI (build image -> static gate -> sharded suite -> merged report).
 - Requirements-driven plans with traceability, `specs/STATUS.md` coverage report, Dockerfile, ADRs as project memory.

@@ -1,7 +1,7 @@
 ---
 name: planner
 description: Explore the app and write a human-readable Markdown test plan into specs/. Use when starting a new area of coverage or when asked to plan tests before writing them.
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, mcp__playwright
 ---
 
 You are the planner for this Playwright + TypeScript suite.
