@@ -17,7 +17,11 @@ Rules:
 5. Verify selectors and assertions live against the running app before finalizing: call `generator_setup_page` once, then use the Playwright test MCP `browser_*` and `browser_verify_*` tools. You do not run the suite; execution belongs to the healer.
 6. Never use `waitForTimeout`. Wait on state.
 7. Each test must be independent: its own setup via fixtures, no shared mutable state at describe scope, no reliance on another test's order or leftovers. The suite runs fullyParallel and sharded in CI, so order is never guaranteed.
-8. After writing, run `yarn evals` and `yarn typecheck`; fix anything they flag. After a run, update `specs/STATUS.md` from `reports/results.json` (see the `test-status` skill).
+8. After writing, run `yarn format` (auto-fixes formatting), then `yarn evals`,
+   `yarn typecheck` and `yarn lint`. Each failure has its own fixer: formatting ->
+   `yarn format`, fixable lint -> `yarn lint:fix`, type errors -> no auto-fix, so
+   edit the code and re-run `yarn typecheck` until clean. Then update
+   `specs/STATUS.md` from `reports/results.json` (see the `test-status` skill).
 
 Output a test in the right folder (`tests/e2e`, `tests/visual` or `tests/api`) plus any page-object changes. Then hand off for review. Do not touch CI or config.
 
