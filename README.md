@@ -12,10 +12,10 @@ repo, so you start a new project from a real structure instead of a blank page.
   skills (requirements, page-object, visual-regression, api-testing, playwright-mcp, evals, bug-reporting, jira-ticket, test-status),
   commands (`/feature`, `/ticket`, `/coverage`).
 - One official MCP server wired in `.mcp.json`: `run-test-mcp-server` (ships in `@playwright/test`), providing both the browser tools (same engine as `@playwright/mcp`) and the test tools (`test_run`/`test_debug`/`test_list`). Agents are aligned to Playwright's official definitions; only the healer runs the suite. `seed.spec.ts` for the agents workflow; optional Jira MCP.
-  The two agents that drive the browser, `planner` and `healer`, carry `mcp__playwright`
-  in their `tools:` allowlist so the server's tools reach them; the rest stay file-only on
-  purpose. Claude Code asks you to approve the Playwright MCP server the first time it runs,
-  so approve it once and the browser tools become available to those agents.
+  Each agent lists only the tools it needs (`mcp__playwright-test__*`): planner and
+  generator get the browser tools, healer also gets the test tools (`test_run`/`test_debug`/`test_list`)
+  and is the only agent that runs the suite; manager/reviewer/reporter stay file-only.
+  Claude Code asks you to approve the server the first time it runs.
 - Programmatic runner using `@anthropic-ai/claude-agent-sdk` (`agent/run.ts`).
 - Evals gate (`evals/run-evals.ts`) + GitHub Actions CI (build image -> static gate -> sharded suite -> merged report).
 - Requirements-driven plans with traceability, `specs/STATUS.md` coverage report, Dockerfile, ADRs as project memory.

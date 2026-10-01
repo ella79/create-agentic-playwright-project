@@ -90,7 +90,8 @@ become ADRs so agents and future sessions inherit the reasoning.
 - Visual comparisons: https://playwright.dev/docs/test-snapshots
 - API testing: https://playwright.dev/docs/api-testing
 - Test agents (planner/generator/healer): https://playwright.dev/docs/test-agents
-- Playwright MCP: https://github.com/microsoft/playwright-mcp
+- Playwright Test Agents: https://playwright.dev/docs/test-agents
+- Playwright MCP (browser tools): https://github.com/microsoft/playwright-mcp
 - Claude Agent SDK (overview): https://platform.claude.com/docs/en/agent-sdk/overview
 - Claude Agent SDK (TypeScript repo): https://github.com/anthropics/claude-agent-sdk-typescript
 - Claude Code subagents: https://docs.claude.com/en/docs/claude-code/sub-agents
