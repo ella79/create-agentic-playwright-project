@@ -78,9 +78,8 @@ yarn evals           # pre-CI checks over the tests
 
 ## Agentic workflow (Claude Code + Playwright MCP)
 
-```bash
-yarn playwright init-agents --loop=claude   # sets up planner / generator / healer
-```
+The agents ship ready in `.claude/agents/`, aligned to Playwright's official agent
+definitions. **Do not run `yarn playwright init-agents`** - it would overwrite them.
 
 1. Planner reads `requirements/` first: it turns each acceptance criterion into a
    traceable scenario (`STORY-<id> / AC<n>`). With no requirements, it explores the
@@ -92,8 +91,12 @@ yarn playwright init-agents --loop=claude   # sets up planner / generator / heal
 6. Reporter turns a confirmed real bug into a Jira-ready report in `bug-reports/`
    (and files it to Jira if a Jira MCP is configured; see `templates/mcp.jira.example.json`).
 
-Playwright MCP is configured in `.mcp.json`. Claude Code picks up the agents in
-`.claude/agents` and skills in `.claude/skills` automatically.
+One official MCP server is configured in `.mcp.json`: `run-test-mcp-server` (ships
+in `@playwright/test`). It provides both the browser tools (same engine as
+`@playwright/mcp`) and the test tools (`test_run` / `test_debug` / `test_list`), so
+there is no separate browser server. Only the healer runs the suite. Claude Code asks
+you to approve the server on first run, then picks up the agents in `.claude/agents`
+and skills in `.claude/skills` automatically.
 
 ## Programmatic agents
 

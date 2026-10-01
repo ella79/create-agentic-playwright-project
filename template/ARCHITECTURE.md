@@ -40,7 +40,7 @@ docs/adr/        Architecture decision records (project memory)
   agents/        planner, manager, generator, healer, reviewer, reporter
   skills/        requirements, page-object, visual-regression, api-testing, playwright-mcp, evals, bug-reporting, jira-ticket, test-status
   commands/      feature (end-to-end cycle)
-.mcp.json        Playwright MCP server (+ optional Jira, see templates/mcp.jira.example.json)
+.mcp.json        Official Playwright test MCP server: run-test-mcp-server (browser + test tools in one); optional Jira, see templates/mcp.jira.example.json
 Dockerfile         Playwright test image (browsers + deps)
 .github/workflows/ci.yml   Build image -> static gate -> Playwright suite
 ```
@@ -68,7 +68,7 @@ is the script it follows; no separate manager process exists.
 4. **evals gate** (`yarn evals`) + **reviewer** check it.
 5. **Healer** repairs selector drift when tests break; on a real behavior change it stops and hands off to the **Reporter**, which writes a Jira-ready bug report (and files it to Jira if a Jira MCP is configured).
 
-Set it up with `yarn playwright init-agents --loop=claude`.
+The agents ship ready in `.claude/agents/`, aligned to Playwright's official agent definitions; do not run `yarn playwright init-agents` (it would overwrite them).
 
 ## Programmatic agents
 
