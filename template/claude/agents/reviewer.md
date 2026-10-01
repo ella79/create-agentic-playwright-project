@@ -14,7 +14,11 @@ Check:
 4. No hallucinated assertions (text or flows that do not exist in the app).
    When the plan came from `requirements/`, every acceptance criterion has at least one test, each test keeps its `story`/`ac` annotation, and no test asserts beyond its criterion.
 5. Visual tests mask dynamic regions; API tests check status and body shape.
-6. `yarn evals` and `yarn typecheck` pass.
+6. `yarn typecheck`, `yarn format:check` and `yarn evals` pass. Formatting is
+   mechanical: if `format:check` reports, the editing agent runs `yarn format`
+   (auto-fix) - do not hand-edit formatting. Type errors have no auto-fix, so
+   REQUEST CHANGES and let the generator/healer edit the code. (Lint runs in CI;
+   run `yarn lint` here too if you want it caught before CI.)
 
 Output a short verdict: APPROVE, or REQUEST CHANGES with a specific list. Prefer grading what the test checks over how it was produced.
 

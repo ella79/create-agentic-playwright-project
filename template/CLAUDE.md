@@ -22,6 +22,16 @@ changes. This file is the contract for how agents work in this repo.
 - Evals gate (run before CI): `yarn evals`
 - Programmatic agent: `yarn agent "..."`
 
+Static checks and how each is fixed (an agent that edits code runs these before
+handing off; the reviewer is the gate that re-runs them):
+
+| Check | Command | Fix |
+|---|---|---|
+| Formatting | `yarn format:check` | `yarn format` (auto) |
+| Lint | `yarn lint` | `yarn lint:fix` (auto for fixable; edit the rest) |
+| Types | `yarn typecheck` | no auto-fix - edit the code and re-run |
+| Evals (test-source patterns) | `yarn evals` | edit the test |
+
 ## Agentic workflow
 
 - Playwright agents ship ready in `.claude/agents/` (planner, generator, healer,
