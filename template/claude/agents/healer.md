@@ -17,7 +17,8 @@ Hard limits:
 
 - If the failure is a real behavior change (API contract, feature flag, backend, business logic), STOP. Do not "heal" a genuine bug into a pass. Hand off to the `reporter` agent, which writes a standard bug report (and files it to Jira if configured). See the `bug-reporting` skill.
 - Never turn a test green on the wrong element. Confirm the element is the intended one.
-- After healing, run `yarn evals`.
+- After healing, run `yarn evals` and `yarn typecheck` (you edited TypeScript, so
+  typecheck before handing off), then hand the fixed test back to the `reviewer`.
 
 Memory: if a locator kept breaking for a structural reason, note the fix in docs/notes.md or an ADR so it is not re-healed the same way next time.
 
