@@ -24,8 +24,15 @@ changes. This file is the contract for how agents work in this repo.
 
 ## Agentic workflow
 
-- Playwright agents: `yarn playwright init-agents --loop=claude` sets up
-  planner, generator and healer. Playwright MCP is configured in `.mcp.json`.
+- Playwright agents ship ready in `.claude/agents/` (planner, generator, healer,
+  plus manager, reviewer, reporter), aligned to Playwright's official agent
+  definitions. Do not run `yarn playwright init-agents` - it would overwrite them.
+  They connect to the official Playwright test MCP server (`run-test-mcp-server`),
+  declared in `.mcp.json`, which provides both the `browser_*` tools (same engine as
+  `@playwright/mcp`) and the `test_run` / `test_debug` / `test_list` tools. In Claude
+  Code the tools are `mcp__playwright-test__*`. Least-privilege per agent: planner and
+  generator get the browser tools, healer gets browser inspection plus the test tools
+  (the only agent that runs the suite), manager/reviewer/reporter get no MCP.
 - Requirements first: if `requirements/` holds user stories with acceptance
   criteria, the planner turns each criterion into a scenario and tags it
   `STORY-<id> / AC<n>` for traceability (see the `requirements` skill). If empty,

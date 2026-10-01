@@ -11,7 +11,7 @@ repo, so you start a new project from a real structure instead of a blank page.
 - Claude Code setup: `CLAUDE.md`, agents (manager, planner, generator, healer, reviewer, reporter),
   skills (requirements, page-object, visual-regression, api-testing, playwright-mcp, evals, bug-reporting, jira-ticket, test-status),
   commands (`/feature`, `/ticket`, `/coverage`).
-- Playwright MCP wired in `.mcp.json`; `seed.spec.ts` for the agents workflow; optional Jira MCP.
+- One official MCP server wired in `.mcp.json`: `run-test-mcp-server` (ships in `@playwright/test`), providing both the browser tools (same engine as `@playwright/mcp`) and the test tools (`test_run`/`test_debug`/`test_list`). Agents are aligned to Playwright's official definitions; only the healer runs the suite. `seed.spec.ts` for the agents workflow; optional Jira MCP.
   The two agents that drive the browser, `planner` and `healer`, carry `mcp__playwright`
   in their `tools:` allowlist so the server's tools reach them; the rest stay file-only on
   purpose. Claude Code asks you to approve the Playwright MCP server the first time it runs,

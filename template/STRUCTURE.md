@@ -15,7 +15,7 @@ __PROJECT_NAME__/
   eslint.config.js           Flat ESLint config
   Dockerfile                 Official Playwright image (browsers + OS deps)
   .dockerignore
-  .mcp.json                  Playwright MCP server for the agents
+  .mcp.json                  Official Playwright test MCP server (run-test-mcp-server): browser + test tools
   .env.example               BASE_URL
   seed.spec.ts               Reach a known starting state (planner reads this first)
 

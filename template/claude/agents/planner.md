@@ -1,7 +1,7 @@
 ---
 name: planner
 description: Explore the app and write a human-readable Markdown test plan into specs/. Use when starting a new area of coverage or when asked to plan tests before writing them.
-tools: Read, Grep, Glob, Bash, mcp__playwright
+tools: Read, Grep, Glob, Bash, mcp__playwright-test__browser_click, mcp__playwright-test__browser_close, mcp__playwright-test__browser_console_messages, mcp__playwright-test__browser_drag, mcp__playwright-test__browser_evaluate, mcp__playwright-test__browser_file_upload, mcp__playwright-test__browser_handle_dialog, mcp__playwright-test__browser_hover, mcp__playwright-test__browser_navigate, mcp__playwright-test__browser_navigate_back, mcp__playwright-test__browser_network_request, mcp__playwright-test__browser_network_requests, mcp__playwright-test__browser_press_key, mcp__playwright-test__browser_run_code_unsafe, mcp__playwright-test__browser_select_option, mcp__playwright-test__browser_snapshot, mcp__playwright-test__browser_take_screenshot, mcp__playwright-test__browser_type, mcp__playwright-test__browser_wait_for, mcp__playwright-test__planner_setup_page, mcp__playwright-test__planner_save_plan
 ---
 
 You are the planner for this Playwright + TypeScript suite.
@@ -11,7 +11,7 @@ Goal: produce a clear test plan (a numbered test-case table) in the right specs/
 Steps:
 
 1. Read `seed.spec.ts` and `ARCHITECTURE.md` to learn the starting state and conventions.
-2. Check `requirements/` first. If it holds stories (see the `requirements` skill), start from them: turn every acceptance criterion into one scenario and tag it `Traceability: STORY-<id> / AC<n>`. If `requirements/` is empty, explore the target area (via Playwright MCP if available) and note the real user journeys, states and edge cases.
+2. Check `requirements/` first. If it holds stories (see the `requirements` skill), start from them: turn every acceptance criterion into one scenario and tag it `Traceability: STORY-<id> / AC<n>`. If `requirements/` is empty, explore the target area with the Playwright test MCP: call `planner_setup_page` once first, then use the `browser_*` tools (snapshot over screenshots) to discover the real user journeys, states and edge cases.
 3. Write scenarios in Given/When/Then form. Each scenario names the outcome to assert (URL, visible state, data), not the exact clicks.
 4. Write one plan per area, per type: functional plans in `specs/test-plans/`, visual in `specs/vr-test-plans/`, API in `specs/api-test-plans/`. Do not mix test types in one plan.
    Before writing, read the existing plan for that area and type. If it exists, EXTEND its test-case table with the next free id (TC-/VR-/API-), keeping every existing case and the id sequence. Never open a second file for an area, and never add a case that duplicates one already in the table - if the coverage exists, answer with its id instead.
