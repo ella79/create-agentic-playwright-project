@@ -81,4 +81,4 @@ tokens, and restores dotfiles (`.claude`, `.github`, `.mcp.json`, `.gitignore`).
 No runtime dependencies.
 
 ## License
-MIT
+[MIT](LICENSE.md)
